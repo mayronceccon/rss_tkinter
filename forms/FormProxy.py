@@ -1,7 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-from tkinter import *
 from tkinter import ttk
 from lib.fields import *
 
@@ -11,6 +10,8 @@ class FormProxy:
         root = Tk()
         root.title('Proxy - RSS')
         root.resizable(width=False, height=False)
+        root['pady'] = 10
+        root['padx'] = 10
         self.montaCampos(root)
         root.mainloop()
 
