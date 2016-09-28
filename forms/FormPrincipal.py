@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-from lib.menu import *
+from library.menu import *
 from models.urls_rss import *
 
 

@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from tkinter import ttk
-from lib.fields import *
+from library.fields import *
 
 class FormProxy:
     root = None
