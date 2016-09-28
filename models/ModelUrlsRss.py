@@ -3,11 +3,14 @@
 
 import feedparser
 import urllib.request
+from models.ModelProxy import *
 
-class UrlsRss:
+class ModelUrlsRss:
     proxy = None
     def __init__(self):
-        self.proxy = urllib.request.ProxyHandler({"http": "user:senha@192.168.0.1:3128"})
+        model = ModelProxy()
+        config = model.getProxy()
+        self.proxy = urllib.request.ProxyHandler({"http": config})
 
     def buscaResultados(self):
         url = 'http://www.r7.com//data/rss/tecnologiaCiencia.xml'

@@ -2,7 +2,8 @@
 # -*- coding: utf-8 -*-
 
 from tkinter import ttk
-from library.fields import *
+from library.Fields import *
+from models.ModelProxy import *
 
 class FormProxy:
     root = None
@@ -59,3 +60,12 @@ class FormProxy:
         porta = self.campoPorta.get()
         usuario = self.campoUsuario.get()
         senha = self.campoSenha.get()
+
+        model = ModelProxy()
+
+        proxy = Proxy()
+        proxy.host = host
+        proxy.porta = porta
+        proxy.usuario = usuario
+        proxy.senha = senha
+        model.salvar(proxy)

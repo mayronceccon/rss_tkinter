@@ -1,8 +1,8 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-from library.menu import *
-from models.urls_rss import *
+from library.Menu import *
+from models.ModelUrlsRss import *
 
 
 class FormPrincipal:
@@ -45,7 +45,7 @@ class FormPrincipal:
         self.treeview.bind("<Double-1>", self.itemClicked)
         self.treeview.grid()
 
-        urlsRss = UrlsRss()
+        urlsRss = ModelUrlsRss()
         urls = urlsRss.buscaResultados()
         cont = 0
         for post in urls:
