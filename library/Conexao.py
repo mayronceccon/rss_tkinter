@@ -7,7 +7,7 @@ from sqlalchemy import create_engine
 class Conexao:
     engine = None
     def __init__(self):
-        self.engine = create_engine('sqlite:///rss.db')
+        self.engine = create_engine('sqlite:///rss.db', echo=True)
 
     def conn(self):
         return self.engine

@@ -8,8 +8,9 @@ from models.ModelProxy import *
 class ModelUrlsRss:
     proxy = None
     def __init__(self):
-        model = ModelProxy()
-        config = model.getProxy()
+        #model = ModelProxy()
+        #config = model.getProxy()
+        config = ''
         self.proxy = urllib.request.ProxyHandler({"http": config})
 
     def buscaResultados(self):

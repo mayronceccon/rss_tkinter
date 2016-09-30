@@ -1,25 +1,41 @@
-#!/usr/bin/python
-# -*- coding: utf-8 -*-
+from sqlalchemy import *
+from sqlalchemy.orm import *
+from sqlalchemy.ext.declarative import declarative_base
 
-import feedparser
-import urllib.request
-from sqlalchemy import create_engine
+Base = declarative_base()
 
-mostrar = True
-engine = create_engine('sqlite:///rss.db', echo = mostrar) 
+class TBase(object):
+    """Base class is a 'mixin'.
 
-#https://jucacrispim.wordpress.com/2009/12/07/pequena-introducao-ao-sqlalchemy/
+    Guidelines for declarative mixins is at:
 
-proxy = urllib.request.ProxyHandler({"http":"mayron.ceccon:M@yron151290@192.168.0.1:3128"})
+    http://www.sqlalchemy.org/docs/orm/extensions/declarative.html#mixin-classes
 
-url = 'http://www.r7.com//data/rss/tecnologiaCiencia.xml'
-feed = feedparser.parse(url, handlers = [proxy])
+    """
+    id = Column(Integer, primary_key=True)
+    data = Column(String(50))
 
-for post in feed.entries:
-   title = post.title
-   link = post.link
-   published = post.published
-   #summary = post.summary
-   rss = "Titulo %s - %s" % (title, link)
-   
-   print(rss)
+    def __repr__(self):
+        return "%s(data=%r)" % (
+            self.__class__.__name__, self.data
+        )
+
+class T1Foo(TBase, Base):
+    __tablename__ = 't1'
+
+class T2Foo(TBase, Base):
+    __tablename__ = 't2'
+
+    timestamp = Column(DateTime, default=func.now())
+
+engine = create_engine('sqlite://', echo=True)
+
+Base.metadata.create_all(engine)
+
+sess = sessionmaker(engine)()
+
+sess.add_all([T1Foo(data='t1'), T1Foo(data='t2'), T2Foo(data='t3'),
+             T1Foo(data='t4')])
+
+print sess.query(T1Foo).all()
+print sess.query(T2Foo).all()

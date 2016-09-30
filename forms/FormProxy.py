@@ -61,11 +61,11 @@ class FormProxy:
         usuario = self.campoUsuario.get()
         senha = self.campoSenha.get()
 
-        model = ModelProxy()
+        """model = ModelProxy()
 
         proxy = Proxy()
         proxy.host = host
         proxy.porta = porta
         proxy.usuario = usuario
         proxy.senha = senha
-        model.salvar(proxy)
+        model.salvar(proxy)"""

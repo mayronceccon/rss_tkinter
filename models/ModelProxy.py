@@ -20,6 +20,7 @@ class ModelProxy(Model):
 
     def criarTabela(self):
         metadata = MetaData()
+        metadata.clear()
         tabela_proxy = Table('proxy', metadata,
             Column('id', Integer, primary_key=True),
             Column('host', String),
