@@ -1,3 +1,6 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
 from sqlalchemy import *
 from sqlalchemy.orm import *
 from sqlalchemy.ext.declarative import declarative_base
@@ -13,29 +16,33 @@ class TBase(object):
 
     """
     id = Column(Integer, primary_key=True)
-    data = Column(String(50))
+    timestamp = Column(DateTime, default=func.now())
 
     def __repr__(self):
-        return "%s(data=%r)" % (
-            self.__class__.__name__, self.data
+        return "%s(cpf=%r, cnpj= %r)" % (
+            self.__class__.__name__, self.cpf,
+            self.__class__.__name__, self.cnpj
         )
 
 class T1Foo(TBase, Base):
-    __tablename__ = 't1'
+    __tablename__ = 'pessoas'
+    cpf = Column(String(11))
 
 class T2Foo(TBase, Base):
-    __tablename__ = 't2'
+    __tablename__ = 'empresas'
+    cnpj = Column(String(14))
 
-    timestamp = Column(DateTime, default=func.now())
 
-engine = create_engine('sqlite://', echo=True)
+
+engine = create_engine('sqlite:///rss.db', echo=False)
 
 Base.metadata.create_all(engine)
 
 sess = sessionmaker(engine)()
 
-sess.add_all([T1Foo(data='t1'), T1Foo(data='t2'), T2Foo(data='t3'),
-             T1Foo(data='t4')])
+sess.add_all([T1Foo(cpf='07785679908'), T1Foo(cpf='98989898'), T2Foo(cnpj='9898996598659'),
+             T1Foo(cpf='98958989')])
+sess.commit()
 
-print sess.query(T1Foo).all()
-print sess.query(T2Foo).all()
+print(sess.query(T1Foo).all())
+print(sess.query(T2Foo).all())
